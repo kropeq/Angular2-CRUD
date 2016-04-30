@@ -1,17 +1,11 @@
+import {User} from './userModel';
+import {USERS} from './users';
+
 export class UserService {
 	getUsers() : User[] {
-		return users;
+		return USERS;
 	}
-	addUser(username,password){
-		users.push({"username":username,"password":password});
+	addUser(user,pass){
+		USERS.push({username:user,password:pass});
 	}
 }
-
-export class User {
-	username: string;
-	password: string;
-}
-
-var users: User[] = [
-{"username":"admin","password":"admin2"}
-];
