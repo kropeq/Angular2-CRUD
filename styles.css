@@ -1,0 +1,52 @@
+body { 
+  background-image: url("./graph/background.jpg");
+  margin: 0;
+}
+
+#logging {
+	background-color: rgba(111,104,104,0.7);
+	width: 300px;
+	margin: auto auto;
+	border-radius: 25px;
+	padding: 10px 0;
+}
+
+#logging button {
+	background-color: green;
+	border-color: green;
+}
+
+
+#logging input, #logging button {
+	display: block;
+	margin: 10px auto;
+	padding: 5px 0;
+	width: 130px;
+	border-radius: 5px;
+}
+
+#logging label {
+	display: block;
+	color: red;
+	text-align: center;
+}
+
+#bar div {
+	display: inline-flex;
+	width: 120px;
+	background-color: rgba(111,104,104,1.0);
+	padding: 10px;
+	border-style: solid;
+	border-width: 3px;
+	border-color: rgba(111,104,104,0.7);
+	border-radius: 10px;
+	font-weight: bold;
+	text-align: center;
+	color: red;
+}
+
+#topBar {
+	display: block;
+	width: 450px;
+	margin: 0 auto 10px auto;
+}
