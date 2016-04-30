@@ -5,11 +5,13 @@ import {UserService} from './user.service';
 @Component({
 	selector: 'log-in',
 	template: `
+	<div id="logging">
 		<label id="label1"> {{title}} </label>
 		<input #box (keyup)="login=box.value">
 		<label> Wpisz hasło </label>
 		<input #box2 (keyup)="password=box2.value">
 		<button (click)="onClickMe()">Zaloguj</button>
+	</div>
 	`,
 	providers: [UserService]
 })
