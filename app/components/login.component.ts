@@ -37,21 +37,25 @@ export class LoginComponent {
 
 		var jest = false;
 		var inputs = {username:this.login, password: this.password};
-		// sprawdzanie czy jest w liscie uzytkownikow
-		// jesli nie, to go dodaje
 		
+		// przeszukanie listy userów w celu określenia,
+		// czy istnieje już taki user, a jeśli tak, to można logować
 		users.forEach(function(element) {
 			if(element.username === inputs.username && 
 				element.password === inputs.password) jest = true;
 		})
+		// jeśli nie ma takiego użytkownika i użytkownik != od pustego
 		if(jest !== true && inputs.username !== ""){
 			alert("Wpisano niepoprawne dane!");
+		// jeśli jest użytkownik i są wpisane poprawne dane, zaloguj
 		} else if (jest === true && inputs.username !== ""){
 			alert("ZALOGOWANO!");
 			document.cookie = "loggedAs="+inputs.username;
 			this.login="";
 			this.password="";
 			this.router.navigate(['Contestants']);
+		// jeśli nie są spełnione powyższe warunki, to znaczy, że
+		// nie zostały uzupełnione jakieś pola
 		} else {
 			alert("Uzupełnij wymagane pola.");
 		}

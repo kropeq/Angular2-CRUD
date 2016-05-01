@@ -44,31 +44,44 @@ export class RegisterComponent {
 
 		var jest = false;
 		var inputs = {username:this.login, password: this.password, retyped: this.retyped};
-		// sprawdzanie czy jest w liscie uzytkownikow
-		// jesli nie, to go dodaje
-		
-		users.forEach(function(element) {
-			if(element.username === inputs.username) 
-				jest = true;
-		})
-		if(jest === true ){
-			alert("Taki użytkownik już istnieje. Wybierz inny.");
-		} else if (inputs.username === "" 
-			|| inputs.password === "" || inputs.retyped === ""){
-			alert("Uzupełnij wszystkie pola.");
-		} else if(jest !== true && inputs.username !== "" && inputs.password !== ""){
-			if(inputs.password === inputs.retyped){
-				this.addUser(this.login,this.password);
-				alert("Dziękujemy za rejestrację!");
-				this.login = "";
-				this.password = "";
-				this.retyped = "";
-				this.router.navigate(['Login']);
-			} else {
-				alert("Hasła się nie zgadzają.");
-				this.password = "";
-				this.retyped = "";
-			}
-		} 
+
+		// sprawdzamy poprawność wpisanego nicku
+		var pat_name = new RegExp("^[a-z0-9]{3,16}$");
+		var pat_pass = new RegExp("^[a-zA-Z0-9]{6,16}$");
+		if(pat_name.test(inputs.username) && pat_pass.test(inputs.password)){
+			// przeszukanie listy userów w celu określenia,
+			// czy istnieje już taki user, a jeśli tak, 
+			// to nie można rejestrować
+			users.forEach(function(element) {
+				if(element.username === inputs.username) 
+					jest = true;
+			});
+			// jeśli istnieje taki user
+			if(jest === true ){
+				alert("Taki użytkownik już istnieje. Wybierz inny.");
+			// jeśli któreś z pól nie jest wypełnione
+			} else if (inputs.username === "" 
+				|| inputs.password === "" || inputs.retyped === ""){
+				alert("Uzupełnij wszystkie pola.");
+			// jeśli nazwa jest wolna oraz są uzupełnione pola
+			} else if(jest !== true && inputs.username !== "" && 
+				inputs.password !== "" && inputs.retyped !== ""){
+				// jeśli hasło zgadza się z powtórzonym hasłem
+				if(inputs.password === inputs.retyped){
+					this.addUser(this.login,this.password);
+					alert("Dziękujemy za rejestrację!");
+					this.login = "";
+					this.password = "";
+					this.retyped = "";
+					this.router.navigate(['Login']);
+				} else {
+					alert("Hasła się nie zgadzają.");
+					this.password = "";
+					this.retyped = "";
+				}
+			} 
+		} else {
+			alert("Nie przeszło validacji nicku lub hasła!");
+		}
 	}
 }
