@@ -11,9 +11,9 @@ import {ContestantsComponent} from './contestants.component';
 	template: `
 		<div id="content">
 			<div id="topBar">
-				<div id="login" ><a [routerLink]="['Login']">Zaloguj</a></div>
-				<div id="register"><a [routerLink]="['Register']">Rejestracja</a></div>
-				<div id="startList"><a [routerLink]="['Contestants']">Lista startowa</a></div>
+				<a [routerLink]="['Login']"><div>Zaloguj</div></a>
+				<a [routerLink]="['Register']"><div>Rejestracja</div></a>
+				<a [routerLink]="['Contestants']"><div>Lista startowa</div></a>
 			</div>			
   			<router-outlet></router-outlet>
 		</div>`,
@@ -48,4 +48,7 @@ import {ContestantsComponent} from './contestants.component';
   }
 ])
 
-export class AppComponent { }
+export class AppComponent { 
+	// później to wykorzystam do chowania zakładek
+	loggedAs = document.cookie.split("=")[1];
+}

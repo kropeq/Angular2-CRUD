@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {User} from '../models/userModel';
 import {UserService} from '../services/user.service';
+import {Router,ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
 	selector: 'log-in',
@@ -14,6 +15,7 @@ import {UserService} from '../services/user.service';
 		<button (click)="onClickMe()">Zaloguj</button>
 	</div>
 	`,
+	directives: [ROUTER_DIRECTIVES],
 	providers: [UserService]
 })
 
@@ -24,7 +26,7 @@ export class LoginComponent {
 	users: User[];
 	user: User;
 
-	constructor(private userService: UserService){ }
+	constructor(private userService: UserService, private router: Router){ }
 
 	getUsers(){
 		return this.userService.getUsers();
@@ -46,8 +48,10 @@ export class LoginComponent {
 			alert("Wpisano niepoprawne dane!");
 		} else if (jest === true && inputs.username !== ""){
 			alert("ZALOGOWANO!");
+			document.cookie = "loggedAs="+inputs.username;
 			this.login="";
 			this.password="";
+			this.router.navigate(['Contestants']);
 		} else {
 			alert("Uzupełnij wymagane pola.");
 		}

@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {User} from '../models/userModel';
 import {UserService} from '../services/user.service';
+import {Router,ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
 	selector: 'register',
@@ -16,6 +17,7 @@ import {UserService} from '../services/user.service';
 		<button (click)="onClickMe()">Zarejestruj</button>
 	</div>
 	`,
+	directives: [ROUTER_DIRECTIVES],
 	providers: [UserService]
 })
 
@@ -27,7 +29,7 @@ export class RegisterComponent {
 	users: User[];
 	user: User;
 
-	constructor(private userService: UserService){ }
+	constructor(private userService: UserService, private router: Router){ }
 
 	getUsers(){
 		return this.userService.getUsers();
@@ -61,6 +63,7 @@ export class RegisterComponent {
 				this.login = "";
 				this.password = "";
 				this.retyped = "";
+				this.router.navigate(['Login']);
 			} else {
 				alert("Hasła się nie zgadzają.");
 				this.password = "";
