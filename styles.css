@@ -55,3 +55,11 @@ a {
 	text-decoration: none;
 	color: red;
 }
+
+#contestants {
+	background-color: rgba(255,255,255,0.9);
+	width: 50%;
+	margin: auto auto;
+	border-radius: 25px;
+	padding: 10px 0;
+}

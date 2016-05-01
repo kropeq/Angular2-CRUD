@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
-import {User} from './userModel';
-import {UserService} from './user.service';
+import {User} from '../models/userModel';
+import {UserService} from '../services/user.service';
 
 @Component({
 	selector: 'log-in',
