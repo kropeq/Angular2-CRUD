@@ -34,11 +34,11 @@ body {
 #topBar div {
 	display: inline-flex;
 	width: 120px;
-	background-color: rgba(111,104,104,1.0);
+	background-color: rgba(51,153,255,0.7);
 	padding: 10px;
 	border-style: solid;
-	border-width: 3px;
-	border-color: rgba(111,104,104,0.7);
+	border-width: 1px;
+	border-color: rgba(51,153,255,0.7);
 	border-radius: 10px;
 	font-weight: bold;
 	text-align: center;
@@ -61,5 +61,41 @@ a {
 	width: 50%;
 	margin: auto auto;
 	border-radius: 25px;
-	padding: 10px 0;
+	padding: 10px;
+}
+
+.singleUser{
+	display: block;
+	width: 100%;
+	margin: 0;
+}
+
+.singleUser:first-child{
+	margin-top: 20px;
+}
+
+.singleUser:last-child{
+	margin-bottom: 20px;
+}
+
+.singleUser:nth-child(even) .cell{
+	background-color: rgba(41, 243, 54, 0.2);
+}
+
+.singleUser:nth-child(odd) .cell{
+	background-color: rgba(235, 243, 126, 0.4);
+}
+
+.cell{
+	display: inline-block;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	padding: 5px 5px 5px 10px;
+	width: 40%;
+	margin: 0;
+}
+
+.table{
+	width: 70%;
 }
