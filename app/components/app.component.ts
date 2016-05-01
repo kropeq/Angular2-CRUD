@@ -3,6 +3,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
 
 import {UserService} from '../services/user.service';
 import {LoginComponent} from './login.component';
+import {RegisterComponent} from './register.component';
 import {ContestantsComponent} from './contestants.component';
 
 @Component({
@@ -11,7 +12,7 @@ import {ContestantsComponent} from './contestants.component';
 		<div id="content">
 			<div id="topBar">
 				<div id="login" ><a [routerLink]="['Login']">Zaloguj</a></div>
-				<div id="register">Rejestracja</div>
+				<div id="register"><a [routerLink]="['Register']">Rejestracja</a></div>
 				<div id="startList"><a [routerLink]="['Contestants']">Lista startowa</a></div>
 			</div>			
   			<router-outlet></router-outlet>
@@ -19,6 +20,7 @@ import {ContestantsComponent} from './contestants.component';
 	directives: [
 		ROUTER_DIRECTIVES,
 		LoginComponent,
+		RegisterComponent,
 		ContestantsComponent
 	],
 	providers: [
@@ -33,6 +35,11 @@ import {ContestantsComponent} from './contestants.component';
     name: 'Login',
     component: LoginComponent,
     useAsDefault: true
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: RegisterComponent
   },
   {
     path: '/contestants',

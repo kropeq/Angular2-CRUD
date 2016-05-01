@@ -13,12 +13,18 @@ import {UserService} from '../services/user.service';
 					<div class="cell">Name</div>
 					<div class="cell">Pass</div>
 				</div>
-				<div class="singleUser" *ngFor="#user of users" (click)="FillOnClick(user.username)">
+				<div class="singleUser" *ngFor="#user of users" (click)="FillOnClick(user)">
 					<div class="cell">{{user.username}}</div>
 					<div class="cell">{{user.password}}</div>
 				</div>
 			</div>
-			<div *ngIf="currentUser">{{currentUser}}</div>
+			<div class="userForm">
+				<label>Username:</label>
+				<input type="text" name="user" placeholder="username" [ngModel]="currentUser.username">
+				<label>Password:</label>
+				<input type="text" name="pass" placeholder="password" [ngModel]="currentUser.password">
+			</div>
+			<div *ngIf="currentUser">{{currentUser.username}}</div>
 		</div>
 	`
 })

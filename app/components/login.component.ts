@@ -6,10 +6,11 @@ import {UserService} from '../services/user.service';
 	selector: 'log-in',
 	template: `
 	<div id="logging">
+		<h1> LOGOWANIE </h1>
 		<label id="label1"> {{title}} </label>
-		<input #box (keyup)="login=box.value">
+		<input #box placeholder="użytkownik" [ngModel]="login" (keyup)="login=box.value">
 		<label> Wpisz hasło </label>
-		<input #box2 (keyup)="password=box2.value">
+		<input #box2 placeholder="hasło" [ngModel]="password" (keyup)="password=box2.value">
 		<button (click)="onClickMe()">Zaloguj</button>
 	</div>
 	`,
@@ -29,10 +30,6 @@ export class LoginComponent {
 		return this.userService.getUsers();
 	}
 
-	addUser(user,pass){
-		this.userService.addUser(user,pass);
-	}
-
 	onClickMe(){
 		var users = this.getUsers();
 
@@ -44,13 +41,15 @@ export class LoginComponent {
 		users.forEach(function(element) {
 			if(element.username === inputs.username && 
 				element.password === inputs.password) jest = true;
-			alert(element.username);
 		})
 		if(jest !== true && inputs.username !== ""){
-			this.addUser(this.login,this.password);
-			alert("USER DODANY!");
-		} else {
+			alert("Wpisano niepoprawne dane!");
+		} else if (jest === true && inputs.username !== ""){
 			alert("ZALOGOWANO!");
+			this.login="";
+			this.password="";
+		} else {
+			alert("Uzupełnij wymagane pola.");
 		}
 	}
 }

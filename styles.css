@@ -12,15 +12,16 @@ body {
 }
 
 #logging button {
-	background-color: green;
+	background-color: lightgreen;
 	border-color: green;
+	color: red;
 }
 
 
 #logging input, #logging button {
 	display: block;
 	margin: 10px auto;
-	padding: 5px 0;
+	padding: 5px 5px;
 	width: 130px;
 	border-radius: 5px;
 }
@@ -65,9 +66,7 @@ a {
 }
 
 .singleUser{
-	display: block;
 	width: 100%;
-	margin: 0;
 }
 
 .singleUser:first-child{
@@ -93,9 +92,25 @@ a {
 	border-color: black;
 	padding: 5px 5px 5px 10px;
 	width: 40%;
-	margin: 0;
 }
 
 .table{
 	width: 70%;
+	display: inline-block;
+}
+
+.userForm {
+	width: 20%;
+	display: inline-block;
+}
+
+.userForm input {
+	width: 100%;
+}
+
+h1 {
+	font-weight: bold;
+	color: yellow;
+	text-align: center;
+	font-size: 25px;
 }
