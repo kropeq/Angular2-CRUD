@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 
 import {UserService} from '../services/user.service';
+import {ContestantService} from '../services/contestant.service';
 import {LoginComponent} from './login.component';
 import {RegisterComponent} from './register.component';
 import {ContestantsComponent} from './contestants.component';
@@ -25,7 +26,7 @@ import {ContestantsComponent} from './contestants.component';
 	],
 	providers: [
 		ROUTER_PROVIDERS,
-		UserService
+		ContestantService
 	]
 })
 

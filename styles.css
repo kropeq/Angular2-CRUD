@@ -68,6 +68,7 @@ a {
 	margin: auto auto;
 	border-radius: 25px;
 	padding: 10px;
+	min-width: 500px;
 }
 
 .singleUser{
@@ -76,6 +77,10 @@ a {
 
 .singleUser:first-child{
 	margin-top: 20px;
+}
+
+.singleUser:first-child div{
+	background-color: rgba(255,0,0,0.2) !important;
 }
 
 .singleUser:last-child{
@@ -96,7 +101,7 @@ a {
 	border-width: 1px;
 	border-color: black;
 	padding: 5px 5px 5px 10px;
-	width: 40%;
+	width: 18%;
 }
 
 .table{
