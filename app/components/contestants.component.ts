@@ -34,7 +34,7 @@ import {ContestantService} from '../services/contestant.service';
 				<div class="buttons">
 					<button (click)="onAdd()">Dodaj</button>
 					<button (click)="onRemove()">Usuń</button>
-					<button>Aktualizuj</button>
+					<button (click)="onUpdate()">Aktualizuj</button>
 				</div>
 			</div>
 		</div>
@@ -54,25 +54,58 @@ export class ContestantsComponent {
 	constructor(private contestantService: ContestantService) { }
 	contestants = this.contestantService.getContestants();
 
-	onAdd(){
-		var busy = false;
-		var inputs = {bib:this.bib, name:this.name, surname:this.surname, nation:this.nation};
+	// funkcja sluzaca do wyciagniecia indeksu w tablicy wybranego zawodnika
+	checkIndex(){
 		var listOfContestants = this.contestantService.getContestants();
+		var inputs = {bib:this.bib,name:this.name,surname:this.surname,nation:this.nation};
+		var id = 0;
+		var index;
+		// szukamy czy jest taki numer startowy w liście
 		listOfContestants.forEach(function(element) {
-			if(element.bib == inputs.bib) 
-				busy = true;
+			if(element.bib === inputs.bib){
+				index = id;
+			}
+			id++;
 		});
-		if(busy){
+		return index;
+	}
+
+	onAdd(){
+		var index = this.checkIndex();
+		if(index){
 			alert("Ten numer startowy jest zajęty.");
-		} else if(inputs.bib > 0 && inputs.bib < 51 && busy !== true){
+		} else if(this.bib > 0 && this.bib < 51){
 			this.contestantService.addContestant(this.bib,this.name,this.surname,this.nation);
+			this.currentContestant = "";
 		} else {
 			alert("Błędny numer startowy.");
 		}
+
 	}
 
+	
 	onRemove(){
-		var listOfContestants = this.contestantService.getContestants();
+		// jeśli jest taki element w liście, usuwamy
+		var index = this.checkIndex();
+		if(index){
+			this.contestantService.removeContestant(index);
+			this.currentContestant = "";
+			this.bib = undefined;
+			this.name = "";
+			this.surname = "";
+			this.nation = "";
+		} else {
+			alert("Nie ma zawodnika z takim numerem!");
+		}
+	}
+
+	onUpdate(){
+		var index = this.checkIndex();
+		if(index){
+			this.contestantService.updateContestant(index,this.bib,this.name,this.surname,this.nation);
+		} else {
+			alert("Nie ma zawodnika z takim numerem!");
+		}
 	}
 
 	FillOnClick(contestant){
@@ -82,6 +115,10 @@ export class ContestantsComponent {
 		this.nation = contestant.nation;
 		if(this.currentContestant === contestant ){
 			this.currentContestant = '';
+			this.bib = undefined;
+			this.name = "";
+			this.surname = "";
+			this.nation = "";
 			return;
 		} 
 		this.currentContestant = contestant;
