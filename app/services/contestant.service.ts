@@ -7,10 +7,10 @@ export class ContestantService {
 	}
 
 	compareSort(first, second){
-		if(first.bib === second.bib){
+		if(parseInt(first.bib) === parseInt(second.bib)){
 			return 0;
 		}
-		if(first.bib < second.bib ){
+		if(parseInt(first.bib) < parseInt(second.bib) ){
 			return -1;
 		} else {
 			return 1;

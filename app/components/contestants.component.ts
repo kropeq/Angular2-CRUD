@@ -76,16 +76,19 @@ export class ContestantsComponent {
 
 	onAdd(){
 		var index = this.checkIndex();
-		if(index){
-			alert("Ten numer startowy jest zajęty.");
-		} else if(this.bib > 0 && this.bib < 51){
-			this.contestantService.addContestant(this.bib,this.name,this.surname,this.nation);
-			this.clear();
-			this.router.navigate(['Contestants']);
-		} else {
-			alert("Błędny numer startowy.");
+		if(this.isValid(this.name) && this.isValid(this.surname) && 
+			this.isValid(this.nation) && this.isNumber(this.bib)){
+			if(index || index==0){
+				alert("Ten numer startowy jest zajęty.");
+			} else if(this.bib > 0 && this.bib < 51){
+				this.contestantService.addContestant(this.bib,this.name,this.surname,this.nation);
+				this.clear();
+				this.router.navigate(['Contestants']);
+				this.onAdd();
+			} else {
+				alert("Niepoprawny numer startowy");
+			}
 		}
-
 	}
 
 	clear(){
@@ -95,30 +98,59 @@ export class ContestantsComponent {
 		this.surname = "";
 		this.nation = "";
 	}
+	
+	// sprawdzenie czy wpisano numer
+	isNumber(element){
+		var pattern = new RegExp("^[0-9]+$");
+		if(pattern.test(element)){
+			return true;
+		} else {
+			return false;
+		}
+	}
 
+	// sprawdzenie czy wpisano poprawnie Imie / Nazwisko / Kraj
+	isValid(element){
+		var pattern = new RegExp("^[A-ZĄĆĘŁŃÓŚŹŻ]{1}[a-ząćęłńóśźż]+$");
+		if(pattern.test(element)){
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	onRemove(){
 		// jeśli jest taki element w liście, usuwamy
 		var index = this.checkIndex();
-		if(index){
-			this.contestantService.removeContestant(index);
-			this.clear();
-			this.router.navigate(['Contestants']);
+		if(this.isNumber(this.bib)){
+			if(index || index==0){
+				this.contestantService.removeContestant(index);
+				this.clear();
+				this.router.navigate(['Contestants']);
+			} else {
+				alert("Nie ma zawodnika z takim numerem!");
+			}
 		} else {
-			alert("Nie ma zawodnika z takim numerem!");
+			alert("Niepoprawnie wpisany numer zawodnika");
 		}
 	}
 
 	onUpdate(){
 		var index = this.checkIndex();
-		if(index){
-			this.contestantService.updateContestant(index,this.bib,this.name,this.surname,this.nation);
-			this.router.navigate(['Contestants']);
+		if(this.isValid(this.name) && this.isValid(this.surname) && 
+			this.isValid(this.nation) && this.isNumber(this.bib)){
+			if(index){
+				this.contestantService.updateContestant(index,this.bib,this.name,this.surname,this.nation);
+				this.router.navigate(['Contestants']);
+			} else {
+				alert("Nie ma zawodnika z takim numerem!");
+			}
 		} else {
-			alert("Nie ma zawodnika z takim numerem!");
+			alert("Nie wszystkie pola są poprawnie uzupełnione");
 		}
 	}
 
+	// uzupełnia formularz CRUD po kliknięciu na wiersz w liście
 	FillOnClick(contestant){
 		this.bib = contestant.bib;
 		this.name = contestant.name;
