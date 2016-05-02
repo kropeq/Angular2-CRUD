@@ -11,9 +11,9 @@ import {Router,ROUTER_DIRECTIVES} from 'angular2/router';
 		<label id="label1"> {{title}} </label>
 		<input #box placeholder="login" [ngModel]="login" (keyup)="login=box.value">
 		<label> Wpisz hasło </label>
-		<input #box2 placeholder="hasło" [ngModel]="password" (keyup)="password=box2.value">
+		<input #box2 type="password" placeholder="hasło" [ngModel]="password" (keyup)="password=box2.value">
 		<label> Powtórz hasło </label>
-		<input #box3 placeholder="powtórz" [ngModel]="retyped" (keyup)="retyped=box3.value">
+		<input #box3 type="password" placeholder="powtórz" [ngModel]="retyped" (keyup)="retyped=box3.value">
 		<button (click)="onClickMe()">Zarejestruj</button>
 	</div>
 	`,

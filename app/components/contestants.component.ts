@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 
 import {Contestant} from '../models/contestantModel';
 import {ContestantService} from '../services/contestant.service';
+import {Router,ROUTER_DIRECTIVES} from 'angular2/router';
 
 
 @Component({
@@ -38,7 +39,10 @@ import {ContestantService} from '../services/contestant.service';
 				</div>
 			</div>
 		</div>
-	`
+	`,
+	directives: [
+		ROUTER_DIRECTIVES
+	]
 })
 
 export class ContestantsComponent { 
@@ -51,7 +55,7 @@ export class ContestantsComponent {
 	loggedAs = document.cookie.split("=")[1];
 
 	currentContestant = "";
-	constructor(private contestantService: ContestantService) { }
+	constructor(private contestantService: ContestantService, private router: Router) { }
 	contestants = this.contestantService.getContestants();
 
 	// funkcja sluzaca do wyciagniecia indeksu w tablicy wybranego zawodnika
@@ -76,11 +80,20 @@ export class ContestantsComponent {
 			alert("Ten numer startowy jest zajęty.");
 		} else if(this.bib > 0 && this.bib < 51){
 			this.contestantService.addContestant(this.bib,this.name,this.surname,this.nation);
-			this.currentContestant = "";
+			this.clear();
+			this.router.navigate(['Contestants']);
 		} else {
 			alert("Błędny numer startowy.");
 		}
 
+	}
+
+	clear(){
+		this.currentContestant = "";
+		this.bib = undefined;
+		this.name = "";
+		this.surname = "";
+		this.nation = "";
 	}
 
 	
@@ -89,11 +102,8 @@ export class ContestantsComponent {
 		var index = this.checkIndex();
 		if(index){
 			this.contestantService.removeContestant(index);
-			this.currentContestant = "";
-			this.bib = undefined;
-			this.name = "";
-			this.surname = "";
-			this.nation = "";
+			this.clear();
+			this.router.navigate(['Contestants']);
 		} else {
 			alert("Nie ma zawodnika z takim numerem!");
 		}
@@ -103,6 +113,7 @@ export class ContestantsComponent {
 		var index = this.checkIndex();
 		if(index){
 			this.contestantService.updateContestant(index,this.bib,this.name,this.surname,this.nation);
+			this.router.navigate(['Contestants']);
 		} else {
 			alert("Nie ma zawodnika z takim numerem!");
 		}
@@ -114,11 +125,7 @@ export class ContestantsComponent {
 		this.surname = contestant.surname;
 		this.nation = contestant.nation;
 		if(this.currentContestant === contestant ){
-			this.currentContestant = '';
-			this.bib = undefined;
-			this.name = "";
-			this.surname = "";
-			this.nation = "";
+			this.clear();
 			return;
 		} 
 		this.currentContestant = contestant;

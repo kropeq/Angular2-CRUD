@@ -12,7 +12,7 @@ import {sharedService} from '../services/shared.service';
 		<label id="label1"> {{title}} </label>
 		<input #box placeholder="użytkownik" [ngModel]="login" (keyup)="login=box.value">
 		<label> Wpisz hasło </label>
-		<input #box2 placeholder="hasło" [ngModel]="password" (keyup)="password=box2.value">
+		<input #box2 type="password" placeholder="hasło" [ngModel]="password" (keyup)="password=box2.value">
 		<button (click)="onClickMe()">Zaloguj</button>
 	</div>
 	`,
