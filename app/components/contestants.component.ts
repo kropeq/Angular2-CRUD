@@ -22,32 +22,33 @@ import {ContestantService} from '../services/contestant.service';
 					<div class="cell">{{contestant.nation}}</div>
 				</div>
 			</div>
-			<div class="userForm">
+			<div class="userForm" *ngIf="loggedAs=='admin'">
 				<label>Numer:</label>
-				<input type="text" #box1 name="bib" placeholder="numer" [ngModel]="currentContestant.bib" (keyup)="bib=box1.value">
+				<input #box1 name="bib" placeholder="numer" [ngModel]="currentContestant.bib" (keyup)="bib=box1.value">
 				<label>Imie:</label>
-				<input type="text" #box2 name="name" placeholder="imie" [ngModel]="currentContestant.name" (keyup)="name=box2.value">
+				<input #box2 name="name" placeholder="imie" [ngModel]="currentContestant.name" (keyup)="name=box2.value">
 				<label>Nazwisko:</label>
-				<input type="text" #box3 name="surname" placeholder="nazwisko" [ngModel]="currentContestant.surname" (keyup)="surname=box3.value">
+				<input #box3 name="surname" placeholder="nazwisko" [ngModel]="currentContestant.surname" (keyup)="surname=box3.value">
 				<label>Kraj:</label>
-				<input type="text" #box4 name="nation" placeholder="kraj" [ngModel]="currentContestant.nation" (keyup)="nation=box4.value">
+				<input #box4 name="nation" placeholder="kraj" [ngModel]="currentContestant.nation" (keyup)="nation=box4.value">
 				<div class="buttons">
 					<button (click)="onAdd()">Dodaj</button>
 					<button (click)="onRemove()">Usuń</button>
 					<button>Aktualizuj</button>
 				</div>
 			</div>
-			<div *ngIf="currentContestant">{{currentContestant.name}}</div>
 		</div>
 	`
 })
 
 export class ContestantsComponent { 
 	//users : User[] = [];
-	bib;
+	bib : number;
 	name = "";
 	surname = "";
 	nation = "";
+
+	loggedAs = document.cookie.split("=")[1];
 
 	currentContestant = "";
 	constructor(private contestantService: ContestantService) { }
@@ -58,13 +59,15 @@ export class ContestantsComponent {
 		var inputs = {bib:this.bib, name:this.name, surname:this.surname, nation:this.nation};
 		var listOfContestants = this.contestantService.getContestants();
 		listOfContestants.forEach(function(element) {
-			if(element.bib === inputs.bib) 
+			if(element.bib == inputs.bib) 
 				busy = true;
 		});
 		if(busy){
 			alert("Ten numer startowy jest zajęty.");
-		} else {
+		} else if(inputs.bib > 0 && inputs.bib < 51 && busy !== true){
 			this.contestantService.addContestant(this.bib,this.name,this.surname,this.nation);
+		} else {
+			alert("Błędny numer startowy.");
 		}
 	}
 

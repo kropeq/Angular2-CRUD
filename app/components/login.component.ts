@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import {User} from '../models/userModel';
 import {UserService} from '../services/user.service';
 import {Router,ROUTER_DIRECTIVES} from 'angular2/router';
+import {sharedService} from '../services/shared.service';
 
 @Component({
 	selector: 'log-in',
@@ -15,8 +16,12 @@ import {Router,ROUTER_DIRECTIVES} from 'angular2/router';
 		<button (click)="onClickMe()">Zaloguj</button>
 	</div>
 	`,
-	directives: [ROUTER_DIRECTIVES],
-	providers: [UserService]
+	directives: [
+		ROUTER_DIRECTIVES
+	],
+	providers: [
+		UserService
+	]
 })
 
 export class LoginComponent { 
@@ -26,7 +31,7 @@ export class LoginComponent {
 	users: User[];
 	user: User;
 
-	constructor(private userService: UserService, private router: Router){ }
+	constructor(private userService: UserService, private router: Router, private ss: sharedService){ }
 
 	getUsers(){
 		return this.userService.getUsers();
@@ -49,10 +54,10 @@ export class LoginComponent {
 			alert("Wpisano niepoprawne dane!");
 		// jeśli jest użytkownik i są wpisane poprawne dane, zaloguj
 		} else if (jest === true && inputs.username !== ""){
-			alert("ZALOGOWANO!");
 			document.cookie = "loggedAs="+inputs.username;
 			this.login="";
 			this.password="";
+			this.ss.change();
 			this.router.navigate(['Contestants']);
 		// jeśli nie są spełnione powyższe warunki, to znaczy, że
 		// nie zostały uzupełnione jakieś pola
