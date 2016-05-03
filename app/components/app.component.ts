@@ -84,6 +84,7 @@ export class AppComponent implements OnInit {
 	}
 
 	ngOnInit(){
+		this.loggedAs = document.cookie.split("=")[1];
 		this.ss.getEmittedValue().subscribe(item => this.loggedAs=item);
 	}
 }
